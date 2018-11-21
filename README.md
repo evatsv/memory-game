@@ -1,7 +1,5 @@
 # Eva Matching Game 
-# Memory Game 
-
-Project part of the Front-End Web Developer Nanodegree Udacity.
+# Memory Game - Project part of the Front-End Web Developer Nanodegree Udacity.
 
 ## How It Works
 If you're unfamiliar with the game, the rules are very simple; flip over two hidden cards at a time to locate the ones that match!
