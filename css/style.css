@@ -157,24 +157,6 @@ h1 {
     margin-right: 16%;
 }
 
-
-/*Modal*/
-
-.modal {
-    z-Index: 4;
-    position: absolute;
-    background: #ffffff;
-    border: 3px solid #02b3e4;
-    width: 50%;
-    height: auto;
-    top: 50%;
-    margin: auto;
-    transform: translate(50%, -50%);
-    text-align: center;
-    padding: 10px;
-    font-family: 'Coda', cursive;
-}
-
 .button {
     background-color: #02b3e4;
     padding: 1em 2em;
