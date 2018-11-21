@@ -1,0 +1,183 @@
+/* Global */
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #e5d8e6 url('../img/geometry2.png');
+    /* Background pattern from Subtle Patterns */
+    font-family: 'Coda', cursive;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+
+/* deck of cards */
+
+.deck {
+    width: 660px;
+    min-height: 680px;
+    background: linear-gradient(100deg, #9928a6 0%, #e5d8e6 100%);
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 #970d7d (46, 61, 73, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+}
+
+.deck .card {
+    border-radius: 50%;
+    height: 125px;
+    width: 125px;
+    background: #2e3d49;
+    font-size: 0;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    transform: rotateY(180deg);
+    transition: all .4s ease;
+}
+
+.deck .card.open {
+    transform: rotateY(0deg);
+    background: #f20ac9;
+    cursor: default;
+    animation-name: flip;
+    animation-duration: 1s;
+}
+
+.deck .card.show {
+    font-size: 2.5em;
+}
+
+.deck .card.match {
+    cursor: default;
+    background: #0d9297;
+    font-size: 2.5em;
+    ;
+}
+
+.deck .card.disabled {
+    pointer-events: none;
+}
+
+.hide {
+    display: none;
+}
+
+
+/* Media screen for deck and cards */
+
+@media screen and (max-width: 650px) {
+    ul.deck {
+        max-width: 85%;
+        height: auto;
+        margin: 0 10px 10px 0;
+    }
+    .card {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .deck {
+        padding: 15px;
+    }
+}
+
+
+/* Score Panel*/
+
+.score-panel {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Coda', cursive;
+    font-size: 1.2em;
+}
+
+.score-panel .stars {
+    display: flex;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
+}
+
+.score-panel .timer {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+.stars,
+.moves,
+.timer,
+.restart {
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.stars .starIcon {
+    padding: 2%;
+    margin-right: 16%;
+}
+
+
+/*Modal*/
+
+.modal {
+    z-Index: 4;
+    position: absolute;
+    background: #ffffff;
+    border: 3px solid #02b3e4;
+    width: 50%;
+    height: auto;
+    top: 50%;
+    margin: auto;
+    transform: translate(50%, -50%);
+    text-align: center;
+    padding: 10px;
+    font-family: 'Coda', cursive;
+}
+
+.button {
+    background-color: #02b3e4;
+    padding: 1em 2em;
+    color: #ffffff;
+    border: 0;
+}
