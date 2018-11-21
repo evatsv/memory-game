@@ -20,7 +20,8 @@ let FClick = true;
 
 
 
-//Initialize game and create the cards
+// Initialize the Memory Game and create the cards
+
 
 function init() {
     shuffle(icons);
@@ -33,6 +34,8 @@ function init() {
         click(card);
     }
 }
+
+init();
 
 
 
