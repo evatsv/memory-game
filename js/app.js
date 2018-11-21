@@ -6,17 +6,19 @@ const deck = document.querySelector(".deck");
 const resetB = document.querySelector(".restart");
 const movesContainer = document.querySelector(".moves");
 const timer = document.querySelector('.timer');
-const modalContainer = document.querySelector('.modalContainer');
 const Message = document.querySelector('.Message');
 const starsNumber = document.querySelector(".starsNumber");
 let stars = 3;
-let selectedCard = [];
+let openCard = [];
 let matchedCards = [];
 let moves = 0;
 let currentTimer;
 let minute = 0;
 let second = 0;
 let FClick = true;
+
+
+
 
 //Initialize game and create the cards
 
@@ -32,6 +34,8 @@ function init() {
     }
 }
 
+
+
 //Click event on cards
 function click(card) {
 
@@ -41,18 +45,18 @@ function click(card) {
             FClick = false;
         }
         const currentCard = this;
-        const prevCard = selectedCard[0];
+        const prevCard = openCard[0];
         //check if there is any card selected 
-        if (selectedCard.length === 1) {
+        if (openCard.length === 1) {
             //open card
             card.classList.add("open", "show", "disabled");
-            selectedCard.push(this);
+            openCard.push(this);
             compare(currentCard, prevCard);
             addMoves();
         } else {
             //No open card
             card.classList.add("open", "show", "disabled");
-            selectedCard.push(this);
+            openCard.push(this);
         }
     });
 }
@@ -66,7 +70,7 @@ function compare(currentCard, prevCard) {
         currentCard.classList.add("match");
         prevCard.classList.add("match");
         matchedCards.push(currentCard, prevCard);
-        selectedCard = [];
+        openCard = [];
         //check if the game it is finished
         //gameOver();
 
@@ -76,7 +80,7 @@ function compare(currentCard, prevCard) {
             currentCard.classList.remove("open", "show", "disabled");
             prevCard.classList.remove("open", "show", "disabled");
         }, 500);
-        selectedCard = [];
+        openCard = [];
     }
 }
 
@@ -97,7 +101,7 @@ function addMoves() {
     rating();
 }
 
-//rating
+//Rating
 starsNumber.innerHTML = stars;
 
 function rating() {
@@ -132,7 +136,7 @@ function shuffle(array) {
 function resetG() {
     //reset all variables
     deck.innerHTML = "";
-    selectedCard = [];
+    openCard = [];
     matchedCards = [];
     moves = 0;
     movesContainer.innerHTML = `0 Moves`;
@@ -177,16 +181,6 @@ function resetTimer() {
     second = 0;
     minute = 0;
     timer.innerHTML = `<i class='fa fa-clock-o'></i> ${minute}:${second}`;
-}
-
-//Modal section
-function showModal() {
-    modalContainer.classList.remove("hide");
-    Message.innerHTML = `
-        <p>You finish this round after ${moves} moves<br>
-        It took you ${minute}:${second} minutes</br>
-        You were awarded with  ${stars} stars </p>
-    `;
 }
 
 
