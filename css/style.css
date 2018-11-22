@@ -158,8 +158,26 @@ h1 {
 }
 
 .button {
-    background-color: #02b3e4;
+    background-color: rgba(187, 0, 146, 0.918);
     padding: 1em 2em;
     color: #ffffff;
     border: 0;
+}
+
+
+/*Modal*/
+
+.modal {
+    z-Index: 4;
+    position: absolute;
+    background: #ffffff;
+    border: 3px solid rgba(187, 0, 146, 0.918);
+    width: 50%;
+    height: auto;
+    top: 50%;
+    margin: auto;
+    transform: translate(50%, -50%);
+    text-align: center;
+    padding: 10px;
+    font-family: 'Coda', cursive;
 }
