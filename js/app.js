@@ -1,23 +1,11 @@
 /*
  * Global Variables
  */
+
 const icons = ['fa fa-diamond', 'fa fa-diamond', 'fa fa-paper-plane-o', 'fa fa-paper-plane-o', 'fa fa-anchor', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-bolt', 'fa fa-cube', 'fa fa-cube', 'fa fa-leaf', 'fa fa-leaf', 'fa fa-bicycle', 'fa fa-bicycle', 'fa fa-bomb', 'fa fa-bomb'];
 const deck = document.querySelector(".deck");
-const resetB = document.querySelector(".restart");
-const movesContainer = document.querySelector(".moves");
-const timer = document.querySelector('.timer');
-const Message = document.querySelector('.Message');
-const starsNumber = document.querySelector(".starsNumber");
-let stars = 3;
+
 let openCard = [];
-let matchedCards = [];
-let moves = 0;
-let currentTimer;
-let minute = 0;
-let second = 0;
-let FClick = true;
-
-
 
 
 // Initialize the Memory Game and create the cards
@@ -37,9 +25,10 @@ function init() {
 
 init();
 
-
-
 //Click event on cards
+
+let FClick = true;
+
 function click(card) {
 
     card.addEventListener("click", function() {
@@ -67,6 +56,9 @@ function click(card) {
 //Compare the 2 cards that are selected
 // if the cards do match, lock the cards in the open position 
 //if the cards do not match, remove the cards from the list and hide the card's symbol
+
+let matchedCards = [];
+
 function compare(currentCard, prevCard) {
     if (currentCard.innerHTML === prevCard.innerHTML) {
         //Cards Match
@@ -74,8 +66,6 @@ function compare(currentCard, prevCard) {
         prevCard.classList.add("match");
         matchedCards.push(currentCard, prevCard);
         openCard = [];
-        //check if the game it is finished
-        //gameOver();
 
     } else {
         //Cards don't match
@@ -86,38 +76,6 @@ function compare(currentCard, prevCard) {
         openCard = [];
     }
 }
-
-//check if the game is over
-function gameOver() {
-    if (matchedCards.length === icons.length) {
-        stopTimer();
-        showModal();
-    }
-}
-
-//moves
-movesContainer.innerHTML = `0 Moves`;
-
-function addMoves() {
-    moves++;
-    movesContainer.innerHTML = `${moves} Moves`;
-    rating();
-}
-
-//Rating
-starsNumber.innerHTML = stars;
-
-function rating() {
-    if (moves < 20) {
-        stars = 3;
-    } else if (moves < 25) {
-        stars = 2;
-    } else {
-        stars = 1;
-    }
-    starsNumber.innerHTML = stars;
-}
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -135,40 +93,90 @@ function shuffle(array) {
     return array;
 }
 
-//Reset game
-function resetG() {
+//Check if the game is over
+function gameOver() {
+    if (matchedCards.length === icons.length) {
+        stopTimer();
+        showModal();
+    }
+}
+
+
+//Moves
+
+const movesBox = document.querySelector(".moves");
+let moves = 0;
+movesBox.innerHTML = `0 Moves`;
+
+function addMoves() {
+    moves++;
+    movesBox.innerHTML = `${moves} Moves`;
+    rating();
+}
+
+// Game Rating
+
+const starsNum = document.querySelector(".starsNum");
+let stars = 3;
+starsNum.innerHTML = stars;
+
+function rating() {
+    if (moves < 20) {
+        stars = 3;
+    } else if (moves < 25) {
+        stars = 2;
+    } else {
+        stars = 1;
+    }
+    starsNumber.innerHTML = stars;
+}
+
+
+//Reseting the  game
+
+function resetGame() {
+    
     //reset all variables
     deck.innerHTML = "";
     openCard = [];
     matchedCards = [];
     moves = 0;
-    movesContainer.innerHTML = `0 Moves`;
-    starsNumber.innerHTML = 3;
+    movesBox.innerHTML = `0 Moves`;
+    starsNum.innerHTML = 3;
+    
     //reset timer
     resetTimer();
     //remove false from first click to start again
     FClick = true;
+    
     //create new cards game
     init();
 }
 
-//Reset Button
+// Creating Reset Button
+const resetB = document.querySelector(".restart");
 resetB.addEventListener("click", function() {
     stopTimer();
-    resetG();
+    resetGame();
 })
 
 //Setting timer section
-function setTimer() {
-    timer.innerHTML = `<i class='fa fa-clock-o'></i> ${minute}:${second}`;
-    second++;
 
-    if (second <= 9) {
-        second = '0' + second;
+const timer = document.querySelector('.timer');
+let currentTimer;
+let min = 0;
+let sec = 0;
+
+function setTimer() {
+    timer.innerHTML = `<i class='fa fa-clock-o'></i> ${min}:${sec}`;
+    sec++;
+
+    if (sec <= 9) {
+        sec = '0' + sec;
     }
-    if (second === 60) {
-        minute++;
-        second = 0;
+    if (sec === 60) {
+        min++;
+        sec = 0;
     }
 }
 
@@ -181,11 +189,32 @@ function stopTimer() {
 }
 
 function resetTimer() {
-    second = 0;
-    minute = 0;
-    timer.innerHTML = `<i class='fa fa-clock-o'></i> ${minute}:${second}`;
+    sec = 0;
+    min = 0;
+    timer.innerHTML = `<i class='fa fa-clock-o'></i> ${min}:${sec}`;
 }
 
+/*Creating Modal*/
 
-// Initialize the Memory Game
-init();
+const modalBox = document.querySelector('.modalBox');
+const Message = document.querySelector('.Message');
+const Replay = document.querySelector('.Replay');
+
+function showModal() {
+    modalBox.classList.remove("hide");
+    Message.innerHTML = `
+        <p>It took you ${moves} moves<br>
+        and ${min}:${sec} minutes<br>
+        to finish this game and your score is  ${stars} stars </p>
+    `;
+}
+
+//Replay Button
+Replay.addEventListener("click", function() {
+    resetGame();
+    hideModal();
+})
+
+function hideModal() {
+    modalBox.classList.add("hide");
+}
