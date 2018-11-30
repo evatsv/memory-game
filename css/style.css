@@ -99,7 +99,7 @@ h1 {
 
 /* Media screen for deck and cards */
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 340px) {
     ul.deck {
         max-width: 85%;
         height: auto;
